@@ -93,15 +93,15 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("RequireAdminOrStudentRole", policy => policy.RequireRole("Admin", "Student"));
 });
 
-// CORS for frontend (React, etc.)
+// CORS for frontend (allow all origins)
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", cors =>
     {
-        cors.WithOrigins("http://localhost:3000")
-               .AllowAnyHeader()
-               .AllowAnyMethod()
-               .AllowCredentials();
+        cors.AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+            // Note: .AllowCredentials() cannot be used with AllowAnyOrigin()
     });
 });
 
@@ -134,9 +134,8 @@ app.UseExceptionHandler(errorApp =>
 
 app.UseCors("AllowFrontend");
 
-
-    app.UseSwagger();
-    app.UseSwaggerUI();
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
