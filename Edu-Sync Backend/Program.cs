@@ -134,11 +134,9 @@ app.UseExceptionHandler(errorApp =>
 
 app.UseCors("AllowFrontend");
 
-if (app.Environment.IsDevelopment())
-{
+
     app.UseSwagger();
     app.UseSwaggerUI();
-}
 
 app.UseHttpsRedirection();
 
